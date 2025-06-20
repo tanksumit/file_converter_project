@@ -48,23 +48,21 @@ if uploaded_file:
         output_file = nsdl.process_and_write_output(content_str, f"output_{uploaded_file.name}")
     
     if output_file:
-        status_placeholder.success("✅ File processed. Ready to download!")
+    status_placeholder.success("✅ File processed. Ready to download!")
 
-        with open(output_file, "rb") as f:
-            btn = download_btn.download_button(
-                label="📥 Download Converted File",
-                data=f,
-                file_name=os.path.basename(output_file),
-                mime="text/plain"
-            )
+    with open(output_file, "rb") as f:
+        btn = download_btn.download_button(
+            label="📥 Download Converted File",
+            data=f.read(),
+            file_name=os.path.basename(output_file),
+            mime="text/plain"
+        )
 
-        st.info("ℹ️ After downloading, click '🔁 Reset' to clear the file.")
-
-        # Reset file input after download
-        if btn:  # If download button is clicked
-            st.success("✅ File downloaded successfully.")
+        if btn:
+            st.success("✅ File downloaded. Resetting...")
             os.remove(output_file)
-            st.experimental_rerun() 
-             # Refreshes the app, resets upload state
+            st.experimental_rerun()
+
     else:
-        status_placeholder.error("❌ Conversion failed. Please check the file format and try again.")
+    status_placeholder.error("❌ Conversion failed. Please check the file format and try again.")
+
