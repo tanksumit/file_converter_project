@@ -109,6 +109,9 @@ def convert_uploaded_file(uploaded_file):
     result = process_and_write_output(input_content, output_filename)
     return output_filename if result else None
 
+def is_valid_cdsl(content: str):
+    return '=' in content and '~' in content and "EVSN" in content
+
 
 if __name__ == "__main__":
     path = r"\\192.168.3.250\ses\Client Management\Custodian & Portal - IT Related\Vote & Respsone file Formats\CDSL"

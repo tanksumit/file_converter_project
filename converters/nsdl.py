@@ -87,6 +87,10 @@ def convert_uploaded_file(uploaded_file):
         return None
 
 
+def is_valid_nsdl(content: str):
+    return content.startswith("NSDL") or '^' in content
+
+
 # Optional main test entry (for local dev, not needed in Streamlit)
 if __name__ == "__main__":
     path = r"\\192.168.3.250\ses\Client Management\Custodian & Portal - IT Related\Vote & Respsone file Formats\NSDL"
