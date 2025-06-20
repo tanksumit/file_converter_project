@@ -58,8 +58,13 @@ if uploaded_file:
                 mime="text/plain"
             )
 
+        st.info("ℹ️ After downloading, click '🔁 Reset' to clear the file.")
+
         # Reset file input after download
-        if btn:
-            st.experimental_rerun()  # Refreshes the app, resets upload state
+        if btn:  # If download button is clicked
+            st.success("✅ File downloaded successfully.")
+            os.remove(output_file)
+            st.experimental_rerun() 
+             # Refreshes the app, resets upload state
     else:
         status_placeholder.error("❌ Conversion failed. Please check the file format and try again.")
