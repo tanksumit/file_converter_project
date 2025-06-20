@@ -1,24 +1,24 @@
 import streamlit as st
 import os
 import tempfile
-from converters import cdsl, nsdl, linkintime, karvy, pruva, bigshare
+from converters import cdsl, nsdl #, linkintime, karvy, pruva, bigshare
 
 # Mapping
 converter_map = {
     "CDSL": cdsl,
     "NSDL": nsdl,
-    "LinkIntime": linkintime,
-    "Karvy": karvy,
-    "Pruva": pruva,
-    "Bigshare": bigshare,
+#     "LinkIntime": linkintime,
+#     "Karvy": karvy,
+#     "Pruva": pruva,
+#     "Bigshare": bigshare,
 }
 
 st.set_page_config(page_title="File Converter", layout="centered")
 
-st.title("🗃️ File Converter")
+st.title("🗃️ Voting File to Response File Converter")
 selected_type = st.selectbox("Select File Type", list(converter_map.keys()))
 
-uploaded_file = st.file_uploader("Upload your file", type=["xlsx", "csv"])
+uploaded_file = st.file_uploader("Upload your file", type=["cdsl & nsdl - text", "Others - xlsx"])
 
 if uploaded_file:
     with tempfile.NamedTemporaryFile(delete=False, suffix=uploaded_file.name[-5:]) as temp_file:
