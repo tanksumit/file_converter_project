@@ -18,7 +18,7 @@ st.set_page_config(page_title="File Converter", layout="centered")
 st.title("🗃️ Voting File to Response File Converter")
 selected_type = st.selectbox("Select File Type", list(converter_map.keys()))
 
-uploaded_file = st.file_uploader("Upload your file", type=["cdsl & nsdl - text", "Others - xlsx"])
+uploaded_file = st.file_uploader("Upload your file", type=["text", "xlsx"])
 
 if uploaded_file:
     with tempfile.NamedTemporaryFile(delete=False, suffix=uploaded_file.name[-5:]) as temp_file:
