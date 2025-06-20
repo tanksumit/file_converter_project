@@ -50,7 +50,7 @@ if uploaded_file:
     if output_file:
     status_placeholder.success("✅ File processed. Ready to download!")
 
-    with open(output_file, "rb") as f:
+    with open(output_file, "w") as f:
         btn = download_btn.download_button(
             label="📥 Download Converted File",
             data=f.read(),
