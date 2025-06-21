@@ -50,8 +50,8 @@ if uploaded_file:
         output_file = cdsl.process_and_write_output(content_str, f"output_{uploaded_file.name}")
     elif file_type == "NSDL":
         output_file = nsdl.process_and_write_output(content_str, f"output_{uploaded_file.name}")
-    
-    print(output_file)  
+
+    print(output_file)    
     # Assuming `output_file` is the path to the file generated
     if output_file:
         # Create dynamic file name with timestamp

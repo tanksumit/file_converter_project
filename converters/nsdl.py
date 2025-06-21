@@ -67,7 +67,7 @@ def process_and_write_output(input_content, output_filename):
         with open(output_filename, 'w') as outfile:
             outfile.write(final_content)
 
-        print(f"Output file '{output_filename}' created successfully.")
+        # print(f"Output file '{output_filename}' created successfully.")
         
         return final_content
 
@@ -90,10 +90,11 @@ def is_valid_nsdl(content: str):
 # Optional main test entry (for local dev, not needed in Streamlit)
 if __name__ == "__main__":
     path = r"\\192.168.3.250\ses\Client Management\Custodian & Portal - IT Related\Vote & Respsone file Formats\NSDL"
-    file_name = 'VOTE_HDFC_133721_Bharat Forge Limited_NSDL.txt'
+    file_name = 'VOTE_HDFC_133750_Himadri Speciality Chemical Limited.txt'
     input_file = os.path.join(path, file_name)
     output_file = get_output_filename(input_file)
 
     if content := read_file_whole(input_file):
         if processed_content := process_and_write_output(content, output_file):
             print("NSDL file processed.")
+            print(content)
