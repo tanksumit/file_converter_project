@@ -1,6 +1,9 @@
 import streamlit as st
 import os
 from converters import cdsl, nsdl  # Add other imports as you expand
+from datetime import datetime
+
+
 
 st.set_page_config(page_title="Voting File Converter", page_icon="📄", layout="centered")
 
@@ -11,6 +14,7 @@ uploaded_file = st.file_uploader("Upload your file", type=['txt', 'xlsx'])
 
 status_placeholder = st.empty()
 download_btn = st.empty()
+
 
 def detect_format(content: str):
     """Rudimentary format detection based on structure"""
@@ -34,7 +38,7 @@ if uploaded_file:
     # Step 2: Validate format
     detected_type = detect_format(content_str)
     if detected_type != file_type:
-        status_placeholder.error(f"❌ File format mismatch. You selected {file_type}, but file looks like {detected_type}.")
+        status_placeholder.error(f"❌ File format mismatch. You selected {file_type}, but file looks like {detected_type}. Delet the file by clicking ❌ next to file name and upload again")
         st.stop()
 
     status_placeholder.info("🔍 Validating file format... 50%")
@@ -47,22 +51,22 @@ if uploaded_file:
     elif file_type == "NSDL":
         output_file = nsdl.process_and_write_output(content_str, f"output_{uploaded_file.name}")
     
+    print(output_file)  
+    # Assuming `output_file` is the path to the file generated
     if output_file:
-    status_placeholder.success("✅ File processed. Ready to download!")
+        # Create dynamic file name with timestamp
+        download_filename = f"Output_Response_File_{uploaded_file.name}"
 
-    with open(output_file, "w") as f:
-        btn = download_btn.download_button(
+        # Display success message
+        status_placeholder.success("✅ File processed. Ready to download!")
+
+        # Display download button
+        if st.download_button(
             label="📥 Download Converted File",
-            data=f.read(),
-            file_name=os.path.basename(output_file),
+            data=output_file,
+            file_name=download_filename,
             mime="text/plain"
-        )
+        ):
+            st.success("✅ File downloaded. Please check your download folder.")
 
-        if btn:
-            st.success("✅ File downloaded. Resetting...")
-            os.remove(output_file)
-            st.experimental_rerun()
-
-    else:
-    status_placeholder.error("❌ Conversion failed. Please check the file format and try again.")
-
+            st.success("Reset the page by deleting the uploaded file by clicking ❌ on button next to the file name.")
