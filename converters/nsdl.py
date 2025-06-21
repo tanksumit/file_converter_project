@@ -68,7 +68,8 @@ def process_and_write_output(input_content, output_filename):
             outfile.write(final_content)
 
         print(f"Output file '{output_filename}' created successfully.")
-        return output_filename
+        
+        return final_content
 
     except Exception as e:
         print(f"Error processing file: {e}")
@@ -76,15 +77,10 @@ def process_and_write_output(input_content, output_filename):
 
 
 def convert_uploaded_file(uploaded_file):
-    """Handle Streamlit uploaded file and process it"""
-    try:
-        input_content = uploaded_file.read().decode('utf-8')
-        output_filename = f"output_{uploaded_file.name}"
-        result = process_and_write_output(input_content, output_filename)
-        return output_filename if result else None
-    except Exception as e:
-        print(f"Error in convert_uploaded_file: {e}")
-        return None
+    input_content = uploaded_file.read().decode('utf-8')
+    output_filename = f"output_{uploaded_file.name}"
+    result = process_and_write_output(input_content, output_filename)
+    return output_filename if result else None
 
 
 def is_valid_nsdl(content: str):
